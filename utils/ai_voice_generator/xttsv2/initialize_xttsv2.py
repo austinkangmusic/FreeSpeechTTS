@@ -4,9 +4,10 @@ import torch
 from TTS.tts.configs.xtts_config import XttsConfig
 from TTS.tts.models.xtts import Xtts
 from ...cuda_device import get_device  # Import the get_device function
+from dotenv import load_dotenv
 
-with open("statuses/speaker_name.txt", "r") as file:
-    speaker_name = file.read()
+load_dotenv()
+speaker_name = os.getenv('speaker_name')
 
 # Singleton-like behavior
 _initialized = False
@@ -37,5 +38,8 @@ def initialize_tts_model(speaker_name):
         _initialized = True
     
     return xtts_model, _gpt_cond_latent, _speaker_embedding
+
+
+
 
 
