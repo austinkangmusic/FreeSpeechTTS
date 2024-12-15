@@ -9,3 +9,4 @@ faster_whisper==1.0.3
 PyAudio==0.2.14
 pytz==2024.2
 pyttsx3==2.98
+python-dotenv
