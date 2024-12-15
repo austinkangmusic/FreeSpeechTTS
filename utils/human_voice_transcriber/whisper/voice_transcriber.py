@@ -131,7 +131,7 @@ def process_and_transcribe(audio_file, whisper_model):
                     if user_input:
                         user_input = transcribe_with_whisper(audio_file, whisper_model)
 
-                        user_input = f'{user_input} [Paused]'
+                        user_input = f'{user_input} [Not Speaking]'
                         # Save transcription to a file
 
                         with open("transcription/input.txt", "w") as file:
