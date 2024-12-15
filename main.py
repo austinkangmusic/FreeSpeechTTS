@@ -16,10 +16,10 @@ if use_low_tts:
 else:
     from utils.ai_voice_generator.xttsv2 import generate_xttsv2_voice
 
-model = 'llama3.1:8b'
-
 # Load environment variables from .env file
 load_dotenv()
+model = os.getenv('model')
+speaker_name = os.getenv('speaker_name')
 ollama_port = os.getenv('OLLAMA_PORT')
 host_url = os.getenv('host_url')
 client = setup_client(model, host_url)
@@ -27,16 +27,10 @@ client = setup_client(model, host_url)
 system = files.read('prompts/system_prompt.md')
 user_info = files.read('user/user_info.md')
 
-with open("statuses/speaker_name.txt", "r") as file:
-    speaker_name = file.read()
 personality = files.read(f"XTTS-v2_models/XTTS-v2_{speaker_name}/personality/{speaker_name}.md")
 
 conversation_history_json = []
 conversation_history = ''
-
-
-from typing import List, Optional
-from pydantic import BaseModel, field_validator
 
 class Communication(BaseModel):
     thoughts: List[str]  # Explain the reasoning behind the response
