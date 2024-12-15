@@ -1,5 +1,6 @@
 import time
 import threading
+from dotenv import load_dotenv
 from ollama import Client
 from run_ollama import setup_client
 from pydantic import BaseModel
@@ -16,8 +17,7 @@ else:
     from utils.ai_voice_generator.xttsv2 import initialize_xttsv2, generate_xttsv2_voice
 
 model = 'llama3.1:8b'
-host_url = 'https://tidy-exotic-serval.ngrok-free.app'
-# host_url = '127.0.0.1:11434'
+host_url = os.getenv('host_url')
 client = setup_client(model, host_url)
 system = files.read('prompts/system_prompt.md')
 user_info = files.read('user/user_info.md')
