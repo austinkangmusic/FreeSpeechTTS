@@ -2,7 +2,7 @@ import os
 import torch
 import codecs
 import torchaudio
-from initialize_xttsv2 import initialize_tts_model, speaker_name
+from utils.ai_voice_generator.xttsv2.initialize_xttsv2 import initialize_tts_model, speaker_name
 xtts_model, gpt_cond_latent, speaker_embedding = initialize_tts_model(speaker_name)
 
 def generate_voice_audio(text, output_path):
