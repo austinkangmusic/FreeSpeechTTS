@@ -9,7 +9,7 @@ from utils.extractor import extract_values
 from utils import files, timer, play_audio
 from utils.human_voice_transcriber.whisper import voice_transcriber
 
-use_low_tts = True
+use_low_tts = False
 
 if use_low_tts:
     from utils.ai_voice_generator.pyttxs3 import generate_pyttxs3_voice
