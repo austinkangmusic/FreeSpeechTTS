@@ -2,7 +2,6 @@ import os
 import time
 import threading
 from dotenv import load_dotenv
-from ollama import Client
 from run_ollama import setup_client
 from pydantic import BaseModel
 from typing import List, Optional, Dict
