@@ -20,7 +20,6 @@ else:
 load_dotenv()
 model = os.getenv('model')
 speaker_name = os.getenv('speaker_name')
-ollama_port = os.getenv('OLLAMA_PORT')
 host_url = os.getenv('host_url')
 client = setup_client(model, host_url)
 
