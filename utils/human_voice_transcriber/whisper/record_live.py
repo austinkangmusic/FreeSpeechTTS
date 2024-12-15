@@ -183,6 +183,6 @@ def record_audio(filename='audios/input.wav', channels=1, rate=RECORDING_RATE, c
 
         print(f"Audio recorded and saved as {filename}")
 
-record_audio()
+# record_audio()
 # print('record_live.py')
 
