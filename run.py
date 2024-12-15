@@ -1,3 +1,4 @@
+import os
 import time
 import threading
 from dotenv import load_dotenv
@@ -7,21 +8,29 @@ from pydantic import BaseModel
 from typing import List, Optional, Dict
 from utils.extractor import extract_values
 from utils import files, timer, play_audio
-from utils.human_voice_transcriber.whisper import initialize_whisper, voice_transcriber
+from utils.human_voice_transcriber.whisper import voice_transcriber
 
-use_low_tts = True
+use_low_tts = False
 
 if use_low_tts:
-    from utils.ai_voice_generator.pyttxs3 import generate_pyttxs3_voice, initialize_pyttsx3
+    from utils.ai_voice_generator.pyttxs3 import generate_pyttxs3_voice
 else:
-    from utils.ai_voice_generator.xttsv2 import initialize_xttsv2, generate_xttsv2_voice
+    from utils.ai_voice_generator.xttsv2 import generate_xttsv2_voice
 
 model = 'llama3.1:8b'
+
+# Load environment variables from .env file
+load_dotenv()
+ollama_port = os.getenv('OLLAMA_PORT')
 host_url = os.getenv('host_url')
 client = setup_client(model, host_url)
+
 system = files.read('prompts/system_prompt.md')
 user_info = files.read('user/user_info.md')
-personality = files.read(f"XTTS-v2_models/XTTS-v2_PeterJarvis/personality/PeterJarvis.md")
+
+with open("statuses/speaker_name.txt", "r") as file:
+    speaker_name = file.read()
+personality = files.read(f"XTTS-v2_models/XTTS-v2_{speaker_name}/personality/{speaker_name}.md")
 
 conversation_history_json = []
 conversation_history = ''
@@ -204,6 +213,9 @@ def main_input_simulator():
 
 main()
 # main_input_simulator()
+
+
+
 
 
 
