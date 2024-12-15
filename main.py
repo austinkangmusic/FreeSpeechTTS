@@ -4,7 +4,7 @@ import threading
 from dotenv import load_dotenv
 from run_ollama import setup_client
 from pydantic import BaseModel
-from typing import List, Optional, Dict
+from typing import List, Optional
 from utils.extractor import extract_values
 from utils import files, timer, play_audio
 from utils.human_voice_transcriber.whisper import voice_transcriber
