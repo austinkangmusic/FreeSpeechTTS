@@ -115,7 +115,7 @@ def llm_run():
                          file.write('true')   
                      timer.reset_time()
 
-        print('AI: ', message)
+        print('ASSISTANT:\n', message)
     
         # Formatting the conversation
         formatted_conversation = []
