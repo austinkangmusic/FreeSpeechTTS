@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from run_ollama import setup_client
 from pydantic import BaseModel
 from typing import List, Optional
+from utils.get_time_and_location import get_time_based_on_location
 from utils.extractor import extract_values
 from utils import files, timer, play_audio
 from utils.human_voice_transcriber.whisper import voice_transcriber
@@ -34,13 +35,13 @@ conversation_history = ''
 
 class Communication(BaseModel):
     thoughts: List[str]  # Explain the reasoning behind the response
-    metathoughts: List[str]  # Explain the reasoning behind the response
+    reflectionss: List[str]  # Explain the reasoning behind the response
     action: str  # The action to take, e.g., respond, listen, etc.
     message: Optional[str]  # Text to communicate or None if no message
 
 class SpeechControl(BaseModel):
     thoughts: List[str]  # Explain the reasoning behind continuing or stopping
-    metathoughts: List[str]  # Reflect on the broader context of the speech
+    reflections: List[str]  # Reflect on the broader context of the speech
     action: str  # The action to take: 'continue' or 'stop'    
 
 def get_response(prompt):
@@ -76,7 +77,11 @@ def llm_run():
         if user_input == '':
             user_input = '[No Input]'
             
-        system_prompt = f'{personality}\n\n{system}\n\n{user_info}\n\n##CONVERSATION HISTORY:\n{conversation_history}'
+        location, timezone, current_time = get_time_based_on_location()
+
+        formatted_time_and_location = f'Location: {location}\nTimezone: {timezone}\nCurrent Time and Day: {current_time}'
+
+        system_prompt = f'{personality}\n\n{system}\n\n{user_info}\n\n{formatted_time_and_location}\n\nn##CONVERSATION HISTORY:\n{conversation_history}'
 
         full_prompt = [{'role': 'system', 'content': system_prompt}, {'role': 'user', 'content': user_input}]
 
@@ -85,8 +90,8 @@ def llm_run():
         print('='*180, f'\n{ai_response}\n')
 
         # Specify the keys you want to extract
-        keys_of_interest = ['thoughts', 'action', 'message']
-        thoughts, action, message = extract_values(ai_response, keys_of_interest)
+        keys_of_interest = ['thoughts','reflections', 'action', 'message']
+        thoughts, reflections, action, message = extract_values(ai_response, keys_of_interest)
         if 'respond' in action or 'interrupt' in action:
             if user_input == '':
                 conversation_history_json.append({'role': 'user', 'content': '[No Input]'})
@@ -206,16 +211,3 @@ def main_input_simulator():
 
 main()
 # main_input_simulator()
-
-
-
-
-
-
-
-
-
-
-
-
-
