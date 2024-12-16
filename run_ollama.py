@@ -1,6 +1,11 @@
 from ollama import Client
+from dotenv import load_dotenv
 import os
 import subprocess
+
+load_dotenv
+
+command = os.getenv('OLLAMA_EXE_PATH')
 
 def setup_client(model: str, host_url: str):
     """
@@ -24,7 +29,7 @@ def setup_client(model: str, host_url: str):
 
     # Run the `ollama` command to pull the model
     subprocess.run(
-        ['ollama', 'pull', model],
+        [command, 'pull', model],
         env={**os.environ}  # Ensure the environment variable is available to the subprocess
     )
 
