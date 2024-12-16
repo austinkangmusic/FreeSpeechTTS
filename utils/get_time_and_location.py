@@ -35,13 +35,3 @@ def get_time_based_on_location():
         timezone_str = "Asia/Singapore"  # Singapore Time (SGT) timezone
         current_time = get_current_time(timezone_str)
         return "Unable to fetch location. Falling back to Singapore Time (SGT).", timezone_str, current_time
-
-while True:
-    # Example usage
-    location, timezone, current_time = get_time_based_on_location()
-
-    # You can now use these variables as needed
-    print(location)       # Location: San Francisco, CA, US or "Unknown location"
-    print(timezone)       # Timezone: America/Los_Angeles or Asia/Singapore
-    print(current_time)   # Current time in the respective timezone
-
