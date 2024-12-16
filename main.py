@@ -9,7 +9,7 @@ from utils.extractor import extract_values
 from utils import files, timer, play_audio
 from utils.human_voice_transcriber.whisper import voice_transcriber
 
-use_low_tts = False
+use_low_tts = True
 
 if use_low_tts:
     from utils.ai_voice_generator.pyttxs3 import generate_pyttxs3_voice
@@ -21,7 +21,8 @@ load_dotenv()
 model = os.getenv('model')
 speaker_name = os.getenv('speaker_name')
 host_url = os.getenv('host_url')
-client = setup_client(model, host_url)
+command = os.getenv('OLLAMA_EXE_PATH')
+client = setup_client(command, model, host_url)
 
 system = files.read('prompts/system_prompt.md')
 user_info = files.read('user/user_info.md')
