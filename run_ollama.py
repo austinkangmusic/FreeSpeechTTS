@@ -1,13 +1,8 @@
 from ollama import Client
-from dotenv import load_dotenv
 import os
 import subprocess
 
-load_dotenv
-
-command = os.getenv('OLLAMA_EXE_PATH')
-
-def setup_client(model: str, host_url: str):
+def setup_client(command: str, model: str, host_url: str):
     """
     Sets up the environment and client for connecting to the Ollama model.
     Pulls the specified model from Ollama if necessary.
