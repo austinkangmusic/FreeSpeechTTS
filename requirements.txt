@@ -1,3 +1,4 @@
+wheel
 coqui-tts==0.24.2
 silero_vad==5.1.2
 numpy==1.25.2 # Adjusted for compatibility
